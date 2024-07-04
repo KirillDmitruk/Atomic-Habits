@@ -3,6 +3,7 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import AllowAny
 
 from users.models import User
+from users.paginations import UserPagination
 from users.serializers import UserSerializer
 
 
@@ -26,6 +27,7 @@ class UserListAPIView(generics.ListAPIView):
 
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    pagination_class = UserPagination
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
