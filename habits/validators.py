@@ -56,10 +56,12 @@ class AbsenceHabit:
 class FrequencyHabit:
     """Нельзя выполнять привычку реже, чем 1 раз в 7 дней и не выполнять более 7 дней."""
 
-    def __init__(self, value_1, value_2):
+    def __init__(self, value_1):
         self.value_1 = value_1
-        self.value_2 = value_2
 
     def __call__(self, habit):
-        if habit.get(self.value_1) < 1 or habit.get(self.value_1) > 7:
-            raise ValidationError(f"Частота выполнения привычки должна быть от 1 до 7 дней")
+        if habit.get(self.value_1) < 1:
+            raise ValidationError(f"Нельзя выполнять привычку реже, чем 1 раз в 7 дней.")
+        elif habit.get(self.value_1) > 7:
+            raise ValidationError(f"Нельзя выполнять привычку более 7 дней подряд.")
+
