@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -158,3 +159,40 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
+
+# TG
+TELEGRAM_URL = "https://api.telegram.org/bot"
+BOT_TOKEN = "7351408290:AAGq5uLQHXrCue6XUbkqmFOobAfQxD3yF9Y"
+
+# Redis
+CACHE_ENABLED = True
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+        }
+    }
+
+# Celery Configuration Options
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = TIME_ZONE
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+# Настройка для celery, чтобы складывать все задачи в очередь
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+
+# Настройки для Celery
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'users.tasks.block_users',  # Путь к задаче
+        'schedule': timedelta(days=1),  # Расписание выполнения задачи (например, каждый день.)
+    },
+}
