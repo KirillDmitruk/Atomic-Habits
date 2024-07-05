@@ -4,7 +4,7 @@ from rest_framework.serializers import ValidationError
 
 
 class RelatedOrRewardHabit:
-    """Валидатор исключает одновременный выбор связанной привычки и вознаграждения."""
+    """ Валидатор исключает одновременный выбор связанной привычки и вознаграждения """
 
     def __init__(self, value_1, value_2):
         self.value_1 = value_1
@@ -16,7 +16,7 @@ class RelatedOrRewardHabit:
 
 
 class DurationHabit:
-    """Валидация по продолжительности привычки не более 120 сек."""
+    """ Валидация по продолжительности привычки не более 120 сек """
 
     def __init__(self, value_1):
         self.value_1 = value_1
@@ -27,7 +27,7 @@ class DurationHabit:
 
 
 class RelatedAndIsPleasant:
-    """В связанные привычки могут попадать только привычки с признаком приятной привычки."""
+    """ В связанные привычки могут попадать только привычки с признаком приятной привычки """
 
     def __init__(self, value_1, value_2):
         self.value_1 = value_1
@@ -40,7 +40,7 @@ class RelatedAndIsPleasant:
 
 
 class AbsenceHabit:
-    """У приятной привычки не может быть вознаграждения или связанной привычки."""
+    """ У приятной привычки не может быть вознаграждения или связанной привычки """
 
     def __init__(self, value_1, value_2, value_3):
         self.value_1 = value_1
@@ -54,7 +54,7 @@ class AbsenceHabit:
 
 
 class FrequencyHabit:
-    """Нельзя выполнять привычку реже, чем 1 раз в 7 дней и не выполнять более 7 дней."""
+    """ Нельзя выполнять привычку реже, чем 1 раз в 7 дней и не выполнять более 7 дней """
 
     def __init__(self, value_1):
         self.value_1 = value_1

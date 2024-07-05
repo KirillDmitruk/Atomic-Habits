@@ -5,7 +5,7 @@ from habits.validators import RelatedOrRewardHabit, DurationHabit, RelatedAndIsP
 
 
 class HabitSerializer(serializers.ModelSerializer):
-    """Сериализатор для модели Habit"""
+    """ Сериализатор для модели Habit """
 
     class Meta:
         model = Habit

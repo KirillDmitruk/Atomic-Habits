@@ -6,7 +6,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Habit(models.Model):
-    """Модель привычки"""
+    """ Модель привычки """
 
     DAILY = "Раз в день"
     EVERY_TWO_DAYS = "Раз в два дня"
