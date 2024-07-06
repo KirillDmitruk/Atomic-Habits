@@ -34,13 +34,16 @@ class Habit(models.Model):
     place = models.CharField(
         max_length=150,
         verbose_name="Место привычки",
+        help_text="Укажите место. Например, 'спортзал'"
     )
     time = models.TimeField(
         verbose_name="Время выполнения привычки",
+        help_text="Укажите время по примеру: '18:00:00'",
     )
     action = models.TextField(
         max_length=300,
         verbose_name="Действие, которое следует выполнять",
+        help_text="Опишите действие. Например, ходить в спортзал"
     )
     is_pleasant = models.BooleanField(
         **NULLABLE,
@@ -55,7 +58,8 @@ class Habit(models.Model):
     periodicity = models.CharField(
         choices=PERIOD_CHOICES,
         default=DAILY,
-        verbose_name="Периодичность"
+        verbose_name="Периодичность",
+        help_text="Укажите периодичность. Например, DAILY"
     )
     reward = models.CharField(
         max_length=200,
@@ -72,9 +76,14 @@ class Habit(models.Model):
         verbose_name="Признак публичности",
         **NULLABLE
     )
+    send_date = models.DateField(
+        auto_now_add=True,
+        verbose_name="дата начала отправки",
+        **NULLABLE
+    )
 
     def __str__(self):
-        return f"{self.action} - {self.place}"
+        return f"Я буду {self.action} в {self.time} в {self.place}."
 
     class Meta:
         verbose_name = "Привычка"
