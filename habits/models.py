@@ -59,7 +59,7 @@ class Habit(models.Model):
         choices=PERIOD_CHOICES,
         default=DAILY,
         verbose_name="Периодичность",
-        help_text="Укажите периодичность. Например, DAILY"
+        help_text="Укажите периодичность. Например, Раз в день"
     )
     reward = models.CharField(
         max_length=200,

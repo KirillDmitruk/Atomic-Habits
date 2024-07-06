@@ -11,7 +11,7 @@ class RelatedOrRewardHabit:
         self.value_2 = value_2
 
     def __call__(self, habit):
-        if self.habit.get(self.value_1) and self.habit.get(self.value_2):
+        if habit.get(self.value_1) and habit.get(self.value_2):
             raise ValidationError(f"Нельзя выбрать одновременно связанную привычку и вознаграждение")
 
 
@@ -22,7 +22,8 @@ class DurationHabit:
         self.value_1 = value_1
 
     def __call__(self, habit):
-        if habit.get(self.value_1) > timedelta(seconds=120):
+        time = dict(habit).get(self.value_1)
+        if int(time) > 120:
             raise ValidationError(f"Продолжительность привычки не может быть более 120 секунд")
 
 
