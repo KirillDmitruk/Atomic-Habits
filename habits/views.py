@@ -1,8 +1,10 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from habits.models import Habit
 from habits.paginations import HabitPagination
 from habits.serializers import HabitSerializer
+from users.permissions import IsOwner
 
 
 class HabitListAPIView(generics.ListAPIView):
@@ -16,39 +18,41 @@ class HabitListAPIView(generics.ListAPIView):
 class HabitPublishListAPIView(generics.ListAPIView):
     """Список публичных привычек."""
 
-    queryset = Habit.objects.filter(is_published=True)
+    queryset = Habit.objects.filter(is_public=True)
     serializer_class = HabitSerializer
     pagination_class = HabitPagination
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
-    """Создание привычки."""
+    """ Создание привычки """
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
     def perform_create(self, serializer):
-        """Делаем текущего пользователя 'Создателем' привычки."""
+        """ Делаем текущего пользователя 'Создателем' привычки """
         habit = serializer.save()
         habit.user = self.request.user
         habit.save()
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
-    """Отображение одной привычки."""
+    """ Отображение одной привычки """
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
-    """Изменение привычки."""
+    """ Изменение привычки """
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = [IsOwner, IsAuthenticated]
 
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
-    """Удаление привычки."""
+    """ Удаление привычки """
 
     queryset = Habit.objects.all()
+    permission_classes = [IsOwner, IsAuthenticated]
