@@ -47,8 +47,10 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("periodicity"), "Раз в день")
 
     def test_list_habit(self):
-        """ Тестирование списка привычек """
-        pass
+        """ Тестирование вывода всех привычек """
+
+        response = self.client.get(reverse('habits:habits_list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_retrieve_habit(self):
         """ Тестирование просмотра одной привычки """
