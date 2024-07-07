@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cd)cm%#f!q-oqdj(wb0=l_!rklb*pqo%6r2iq_mw5@-_fa28oy'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,11 +86,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "atomichabits",
-        "USER": "postgres",
-        "PASSWORD": "password",
-        "HOST": "127.0.0.1",
-        "PORT": 5432,
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
@@ -147,11 +151,11 @@ REST_FRAMEWORK = {
 
 # Настройки срока действия токенов
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-# Cors
+# CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # Замените на адрес вашего фронтенд-сервера
 ]
@@ -165,7 +169,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 # TG
 TELEGRAM_URL = "https://api.telegram.org/bot"
-BOT_TOKEN = "7351408290:AAGq5uLQHXrCue6XUbkqmFOobAfQxD3yF9Y"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # Redis
 CACHE_ENABLED = True
@@ -174,7 +178,7 @@ if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379",
+            "LOCATION": os.getenv("LOCATION"),
         }
     }
 
@@ -189,8 +193,8 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # Настройка для celery, чтобы складывать все задачи в очередь
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
 # Настройки для Celery
 CELERY_BEAT_SCHEDULE = {

@@ -9,7 +9,7 @@ class Command(BaseCommand):
     """Команда создания суперпользователя"""
     def handle(self, *args, **kwargs):
         user = User.objects.create(
-            email='admin@example.com',
+            email=os.getenv('ADMIN_EMAIL'),
             first_name="Admin",
             last_name="Admin",
             is_superuser=True,
@@ -17,5 +17,5 @@ class Command(BaseCommand):
             is_active=True,
         )
 
-        user.set_password('123qwe456rty')
+        user.set_password(os.getenv('ADMIN_PASSWORD'))
         user.save()
