@@ -11,7 +11,13 @@ class HabitListAPIView(generics.ListAPIView):
     """Список всех привычек."""
 
     serializer_class = HabitSerializer
-    queryset = Habit.objects.all()
+
+    def get_queryset(self):
+        """ Получаем привычки текущего пользователя """
+
+        user = self.request.user
+        return Habit.objects.filter(user=user)
+
     pagination_class = HabitPagination
 
 
