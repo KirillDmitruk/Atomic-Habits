@@ -2,11 +2,11 @@ from django.db import models
 
 from config.settings import AUTH_USER_MODEL
 
-NULLABLE = {'blank': True, 'null': True}
+NULLABLE = {"blank": True, "null": True}
 
 
 class Habit(models.Model):
-    """ Модель привычки """
+    """Модель привычки"""
 
     DAILY = "Раз в день"
     EVERY_TWO_DAYS = "Раз в два дня"
@@ -34,7 +34,7 @@ class Habit(models.Model):
     place = models.CharField(
         max_length=150,
         verbose_name="Место привычки",
-        help_text="Укажите место. Например, 'спортзал'"
+        help_text="Укажите место. Например, 'спортзал'",
     )
     time = models.TimeField(
         verbose_name="Время выполнения привычки",
@@ -43,23 +43,22 @@ class Habit(models.Model):
     action = models.TextField(
         max_length=300,
         verbose_name="Действие, которое следует выполнять",
-        help_text="Опишите действие. Например, ходить в спортзал"
+        help_text="Опишите действие. Например, ходить в спортзал",
     )
     is_pleasant = models.BooleanField(
         **NULLABLE,
         verbose_name="Признак приятной привычки",
     )
     relate_habit = models.ForeignKey(
-        'self',
+        "self",
         on_delete=models.CASCADE,
-        verbose_name="Связанная привычка",
-        **NULLABLE
+        verbose_name="Связанная привычка", **NULLABLE
     )
     periodicity = models.CharField(
         choices=PERIOD_CHOICES,
         default=DAILY,
         verbose_name="Периодичность",
-        help_text="Укажите периодичность. Например, Раз в день"
+        help_text="Укажите периодичность. Например, Раз в день",
     )
     reward = models.CharField(
         max_length=200,
@@ -88,4 +87,3 @@ class Habit(models.Model):
     class Meta:
         verbose_name = "Привычка"
         verbose_name_plural = "Привычки"
-
