@@ -2,7 +2,7 @@ from rest_framework import permissions
 
 
 class IsOwner(permissions.BasePermission):
-    """ Проверяет, является ли пользователь владельцем """
+    """Проверяет, является ли пользователь владельцем"""
 
     message = "You must be the owner of this content."
 

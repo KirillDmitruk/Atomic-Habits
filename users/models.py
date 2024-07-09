@@ -5,7 +5,8 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class User(AbstractUser):
-    """ Модель пользователя """
+    """Модель пользователя"""
+
     username = None
     email = models.EmailField(unique=True, verbose_name="почта")
 
@@ -16,7 +17,7 @@ class User(AbstractUser):
         max_length=50,
         **NULLABLE,
         verbose_name="ID чата в Telegram",
-        help_text="Идентификатор чата в Telegram, который будет использоваться для отправки уведомлений"
+        help_text="Идентификатор чата в Telegram, который будет использоваться для отправки уведомлений",
     )
 
     USERNAME_FIELD = "email"

@@ -13,7 +13,7 @@ class HabitListAPIView(generics.ListAPIView):
     serializer_class = HabitSerializer
 
     def get_queryset(self):
-        """ Получаем привычки текущего пользователя """
+        """Получаем привычки текущего пользователя"""
 
         user = self.request.user
         return Habit.objects.filter(user=user)
@@ -30,27 +30,27 @@ class HabitPublishListAPIView(generics.ListAPIView):
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
-    """ Создание привычки """
+    """Создание привычки"""
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
     def perform_create(self, serializer):
-        """ Делаем текущего пользователя 'Создателем' привычки """
+        """Делаем текущего пользователя 'Создателем' привычки"""
         habit = serializer.save()
         habit.user = self.request.user
         habit.save()
 
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
-    """ Отображение одной привычки """
+    """Отображение одной привычки"""
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
-    """ Изменение привычки """
+    """Изменение привычки"""
 
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
@@ -58,7 +58,7 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
 
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
-    """ Удаление привычки """
+    """Удаление привычки"""
 
     queryset = Habit.objects.all()
     permission_classes = [IsOwner, IsAuthenticated]

@@ -24,7 +24,11 @@ urlpatterns = [
     path("update/<int:pk>/", UserUpdateAPIView.as_view(), name="users_update"),
     path("delete/<int:pk>/", UserDestroyAPIView.as_view(), name="users_delete"),
     # token
-    path("login/", TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name="token_obtain_pair"),
+    path(
+        "login/",
+        TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
+        name="token_obtain_pair",
+    ),
     # Доступ к токену неавт. пользоват.
     path("api_token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
