@@ -27,6 +27,7 @@ class HabitTestCase(APITestCase):
 
         url = reverse("habits:habits_create")
         data = {
+            "user": self.user.pk,
             "place": "GYM",
             "time": "18:00:00",
             "action": "Go to the GYM",
@@ -73,7 +74,7 @@ class HabitTestCase(APITestCase):
             "action": "Go to the pool",
             "periodicity": "Раз в три дня",
         }
-        response = self.client.put(url, data)
+        response = self.client.patch(url, data)
         data = response.json()
         print(data)
 

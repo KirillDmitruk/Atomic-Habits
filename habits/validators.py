@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from rest_framework.serializers import ValidationError
 
 
@@ -24,11 +26,11 @@ class DurationHabit:
         self.value_1 = value_1
 
     def __call__(self, habit):
-        time = dict(habit).get(self.value_1)
-        if int(time) > 120:
-            raise ValidationError(
-                "Продолжительность привычки не может быть более 120 секунд"
-            )
+        if habit.get(self.value_1) is not None:
+            if habit.get(self.value_1) > timedelta(seconds=120):
+                raise ValidationError(
+                    "Продолжительность привычки не может быть более 120 секунд"
+                )
 
 
 class RelatedAndIsPleasant:
