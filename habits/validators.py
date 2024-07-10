@@ -71,9 +71,9 @@ class FrequencyHabit:
         self.value_1 = value_1
 
     def __call__(self, habit):
-        if habit.get(self.value_1) < 1:
-            raise ValidationError(
-                "Нельзя выполнять привычку реже, чем 1 раз в 7 дней."
-            )
-        elif habit.get(self.value_1) > 7:
-            raise ValidationError("Нельзя выполнять привычку более 7 дней подряд.")
+        number_list = [1, 2, 3, 4, 5, 6, 7]
+        num = habit.get(self.value_1)
+        try:
+            num in number_list
+        except ValidationError:
+            print("Привычку нельзя выполнять реже 1 и чаще 7 раз в неделю")
