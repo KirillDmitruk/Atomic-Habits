@@ -20,7 +20,7 @@ class RelatedOrRewardHabit:
 
 
 class DurationHabit:
-    """Валидация по продолжительности привычки не более 120 сек"""
+    """ Валидация по продолжительности привычки не более 120 сек """
 
     def __init__(self, value_1):
         self.value_1 = value_1
@@ -65,7 +65,7 @@ class AbsenceHabit:
 
 
 class FrequencyHabit:
-    """Нельзя выполнять привычку реже, чем 1 раз в 7 дней и не выполнять более 7 дней"""
+    """ Нельзя выполнять привычку реже, чем 1 раз в 7 дней и не выполнять более 7 дней """
 
     def __init__(self, value_1):
         self.value_1 = value_1

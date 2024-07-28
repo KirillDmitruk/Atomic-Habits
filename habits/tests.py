@@ -7,7 +7,7 @@ from users.models import User
 
 
 class HabitTestCase(APITestCase):
-    """Тестирование модели Habit"""
+    """ Тестирование модели Habit """
 
     def setUp(self):
         """Создание тестовой модели Пользователя (с авторизацией) и Привычки"""
@@ -23,7 +23,7 @@ class HabitTestCase(APITestCase):
         )
 
     def test_create_habit(self):
-        """Тестирование создания привычки"""
+        """ Тестирование создания привычки """
 
         url = reverse("habits:habits_create")
         data = {
@@ -45,13 +45,17 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("periodicity"), "Раз в день")
 
     def test_list_habit(self):
-        """Тестирование вывода всех привычек"""
+        """ Тестирование вывода всех привычек """
+        # # очистка базы перед тестом
+        # Habit.objects.all().delete()
 
         response = self.client.get(reverse("habits:habits_list"))
+        response_data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotEqual(len(response_data), 0)  # проверяем что ответ не пустой
 
     def test_retrieve_habit(self):
-        """Тестирование просмотра одной привычки"""
+        """ Тестирование просмотра одной привычки """
 
         url = reverse("habits:habits_retrieve", args=(self.habit.pk,))
         response = self.client.get(url)
@@ -65,7 +69,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("periodicity"), self.habit.periodicity)
 
     def test_update_habit(self):
-        """Тестирование изменений привычки"""
+        """ Тестирование изменений привычки """
 
         url = reverse("habits:habits_update", args=(self.habit.pk,))
         data = {
@@ -85,7 +89,7 @@ class HabitTestCase(APITestCase):
         self.assertEqual(data.get("periodicity"), "Раз в три дня")
 
     def test_delete_habit(self):
-        """Тестирование удаления привычки"""
+        """ Тестирование удаления привычки """
 
         url = reverse("habits:habits_delete", args=(self.habit.pk,))
         response = self.client.delete(url)
